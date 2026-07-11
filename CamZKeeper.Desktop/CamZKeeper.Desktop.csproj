@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
 	<ApplicationIcon>Assets\icon_webcam.ico</ApplicationIcon>
+	 <AssemblyName>CamZKeeper</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
