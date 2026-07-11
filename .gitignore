@@ -1,0 +1,62 @@
+## .gitignore para soluções .NET / Visual Studio (WPF)
+
+# Pastas geradas pelo build - nunca devem ir pro repositório
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+publish/
+out/
+
+# Arquivos de solução/usuário do Visual Studio (configuração pessoal, não do projeto)
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Resultados de build e pacotes NuGet restaurados
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Arquivos de teste/cobertura
+*.trx
+*.coverage
+*.coveragexml
+TestResults/
+
+# ReSharper / Rider (caso alguém do time use)
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+.idea/
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+*.bak
+
+# Configurações geradas em runtime pelo próprio CamZKeeper
+# (config.json e CameraSettings.json são criados na pasta de saída do app,
+# não fazem parte do código-fonte e variam por usuário/máquina)
+config.json
+CameraSettings.json
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Instalador (o .exe do Inno Setup é um artefato de release, não código-fonte —
+# vai anexado na aba "Releases" do GitHub, não commitado no repositório)
+installer/Output/
+*.exe

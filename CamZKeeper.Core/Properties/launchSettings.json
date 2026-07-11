@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CamZKeeper.Poc": {
+      "commandName": "Project",
+      "commandLineArgs": "export"
+    }
+  }
+}

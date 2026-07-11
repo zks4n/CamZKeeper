@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CamZKeeper.Core/CamZKeeper.Core.csproj" />
+  <Project Path="CamZKeeper.Desktop/CamZKeeper.Desktop.csproj" />
+</Solution>

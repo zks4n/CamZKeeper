@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="CamZKeeper.Desktop.Controls.PropertyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Margin="0,0,16,12">
+
+    <StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+
+            <TextBlock
+                x:Name="PropertyName"
+                FontWeight="SemiBold"/>
+
+            <TextBlock
+                x:Name="UnsavedIndicator"
+                Text=" ●"
+                FontWeight="Bold"
+                Foreground="DarkOrange"
+                ToolTip="Alteração não salva"
+                Visibility="Collapsed"/>
+
+        </StackPanel>
+
+        <CheckBox
+            x:Name="AutoCheckBox"
+            Margin="0,4,0,4"
+            Content="Automático"
+            Visibility="Collapsed"/>
+
+        <Slider
+            x:Name="ValueSlider"
+            IsSnapToTickEnabled="True"/>
+
+        <TextBlock
+            x:Name="ValueText"
+            HorizontalAlignment="Right"/>
+
+    </StackPanel>
+
+</UserControl>
