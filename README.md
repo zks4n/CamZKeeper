@@ -36,7 +36,14 @@ Se você baixou o instalador da aba [Releases](../../releases), **não precisa i
 
 1. Vá em [Releases](../../releases) e baixe o instalador da versão mais recente (`CamZKeeper-Setup-x.x.x.exe`).
 2. Execute o instalador e siga o assistente.
-3. **Nota:** por não ser um app assinado digitalmente (certificado de assinatura de código é pago), o Windows SmartScreen pode exibir um aviso na primeira execução. Isso é esperado em projetos pequenos/independentes — clique em **"Mais informações" → "Executar assim mesmo"**.
+3. **Nota sobre avisos do Windows:** como o CamZKeeper não é um app assinado digitalmente (certificado de assinatura de código é pago), o Windows pode bloquear a execução na primeira vez. Isso é esperado em projetos pequenos/independentes e não significa que o app tenha algo de errado. Duas coisas diferentes podem acontecer, dependendo do seu Windows:
+
+   - **Windows SmartScreen** (mais comum): aparece uma tela azul "O Windows protegeu seu computador". Clique em **"Mais informações" → "Executar assim mesmo"**.
+   - **Controle de Aplicativos Inteligente / Smart App Control** (Windows 11, instalações limpas recentes): aparece uma mensagem dizendo que o app foi bloqueado, **sem nenhum botão pra liberar**. Se isso acontecer:
+     1. Vá em **Configurações → Privacidade e segurança → Segurança do Windows → Controle de aplicativos e navegador → Configurações do Controle de Aplicativos Inteligente**.
+     2. Mude temporariamente para **Desativado**.
+     3. Rode o instalador normalmente.
+     4. Depois, se quiser, reative a proteção (no Windows atualizado isso já não exige reinstalar o sistema).
 
 ### Opção 2 — Compilar a partir do código-fonte
 
@@ -102,4 +109,6 @@ Sugestões, issues e pull requests são bem-vindos. Se encontrar um bug ou tiver
 
 ## Licença
 
+<!-- Escolha uma licença e ajuste aqui. Sugestão para projetos open source pessoais: MIT
+     (permite uso comercial e modificação por terceiros, exigindo só que mantenham o crédito). -->
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).

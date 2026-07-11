@@ -93,7 +93,7 @@ namespace CamZKeeper.Desktop.Controls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CamZKeeper.Desktop;component/controls/propertycontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CamZKeeper.Desktop;V1.0.0.0;component/controls/propertycontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Controls\PropertyControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
