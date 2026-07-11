@@ -19,7 +19,7 @@
 ; ============================================================================
 
 #define MyAppName "CamZKeeper"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "zks4n"
 #define MyAppURL "https://github.com/zks4n/CamZKeeper"
 #define MyAppExeName "CamZKeeper.exe"
