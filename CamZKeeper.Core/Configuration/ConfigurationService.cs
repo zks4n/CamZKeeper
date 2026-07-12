@@ -1,11 +1,19 @@
-﻿using System.Text.Json;
+﻿// ConfigurationService.cs
+using System.Text.Json;
 
 namespace CamZKeeper.Core.Configuration;
 
 public class ConfigurationService
 {
+    // %AppData%\CamZKeeper\ - mesma pasta usada pelo SettingsService,
+    // sempre gravável sem precisar de admin.
+    private static readonly string AppDataFolder =
+    Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "CamZKeeper");
+
     private static readonly string FilePath =
-    Path.Combine(AppContext.BaseDirectory, "config.json");
+    Path.Combine(AppDataFolder, "config.json");
 
     public ApplicationConfiguration Load()
     {
@@ -27,5 +35,20 @@ public class ConfigurationService
                 "Não foi possível carregar a configuração.");
 
         return configuration;
+    }
+
+    public void Save(ApplicationConfiguration configuration)
+    {
+        Directory.CreateDirectory(AppDataFolder);
+
+        var json = JsonSerializer.Serialize(
+            configuration,
+            new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+        File.WriteAllText(FilePath, json);
     }
 }

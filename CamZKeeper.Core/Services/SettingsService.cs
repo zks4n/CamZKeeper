@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿// SettingsService.cs
+using System.Text.Json;
 using CamZKeeper.Core.Models;
 
 namespace CamZKeeper.Core.Services;
@@ -8,11 +9,20 @@ namespace CamZKeeper.Core.Services;
 /// </summary>
 public class SettingsService
 {
+    // %AppData%\CamZKeeper\ - pasta de dados do usuário, sempre gravável,
+    // ao contrário da pasta de instalação (Program Files), que exige admin.
+    private static readonly string AppDataFolder =
+    Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "CamZKeeper");
+
     private static readonly string FilePath =
-    Path.Combine(AppContext.BaseDirectory, "CameraSettings.json");
+    Path.Combine(AppDataFolder, "CameraSettings.json");
 
     public void Save(CameraSettings settings)
     {
+        Directory.CreateDirectory(AppDataFolder);
+
         var options = new JsonSerializerOptions
         {
             WriteIndented = true,
