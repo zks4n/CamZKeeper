@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+	<sys:String x:Key="LanguageButton">EN</sys:String>
+	<sys:String x:Key="SupportButton">Cafezinho</sys:String>
+
+	<sys:String x:Key="StartupCheckBox">Iniciar automaticamente com o Windows</sys:String>
+	<sys:String x:Key="TrayCheckBox">Minimizar para a bandeja do sistema (System Tray)</sys:String>
+
+	<sys:String x:Key="SaveButton">Salvar</sys:String>
+	<sys:String x:Key="ResetButton">Restaurar Padrão</sys:String>
+
+	<sys:String x:Key="Status_Ready">Pronto.</sys:String>
+	<sys:String x:Key="Status_NoCameraDetected">Nenhuma câmera detectada na inicialização.</sys:String>
+	<sys:String x:Key="Status_ConfigUpdated">Configurações atualizadas com sucesso.</sys:String>
+	<sys:String x:Key="Status_SaveError">Erro ao salvar: {0}</sys:String>
+	<sys:String x:Key="Status_Saved">Configurações salvas.</sys:String>
+	<sys:String x:Key="Status_SaveFailed">Falha ao salvar.</sys:String>
+	<sys:String x:Key="Status_NoCameraSelected">Nenhuma câmera selecionada.</sys:String>
+	<sys:String x:Key="Status_DefaultsRestored">Valores de fábrica restaurados.</sys:String>
+	<sys:String x:Key="Status_CameraOpenError">Não foi possível abrir '{0}': {1}</sys:String>
+	<sys:String x:Key="Status_PropertiesLoaded">{0} propriedades carregadas.</sys:String>
+	<sys:String x:Key="Status_ValueRejected">{0}: valor rejeitado.</sys:String>
+	<sys:String x:Key="Status_ValueChanged">{0}: {1}</sys:String>
+	<sys:String x:Key="Status_AutoMode">{0}: {1}</sys:String>
+	<sys:String x:Key="Status_AutoRejected">{0}: automático rejeitado.</sys:String>
+	<sys:String x:Key="Mode_Auto">Automático</sys:String>
+	<sys:String x:Key="Mode_Manual">Manual</sys:String>
+
+	<sys:String x:Key="Tray_Open">Abrir</sys:String>
+	<sys:String x:Key="Tray_Exit">Sair</sys:String>
+
+	<sys:String x:Key="UnsavedTooltip">Alteração não salva</sys:String>
+
+	<sys:String x:Key="SupportWindowTitle">Apoie o CamZKeeper</sys:String>
+	<sys:String x:Key="SupportWindow_Header">Gostou do CamZKeeper?</sys:String>
+	<sys:String x:Key="SupportWindow_Body">Esse software é gratuito e feito nas horas vagas. Se ele te ajudou e você quiser retribuir, considere passar lá na live ou me pagar um cafezin rsrs!</sys:String>
+	<sys:String x:Key="SupportWindow_TwitchButton">Ir no canal</sys:String>
+	<sys:String x:Key="SupportWindow_LivePixButton">Patrocinar o café</sys:String>
+
+	<!-- Nomes de propriedades UVC, usando os mesmos termos do painel nativo do Windows -->
+	<sys:String x:Key="Property_Pan">Panorâmica</sys:String>
+	<sys:String x:Key="Property_Tilt">Inclinação</sys:String>
+	<sys:String x:Key="Property_Roll">Rotação</sys:String>
+	<sys:String x:Key="Property_Zoom">Zoom</sys:String>
+	<sys:String x:Key="Property_Exposure">Exposição à Luz</sys:String>
+	<sys:String x:Key="Property_Iris">Diafragma (Íris)</sys:String>
+	<sys:String x:Key="Property_Focus">Foco</sys:String>
+	<sys:String x:Key="Property_ScanMode">Modo de Varredura</sys:String>
+	<sys:String x:Key="Property_Privacy">Privacidade</sys:String>
+	<sys:String x:Key="Property_PanTilt">Panorâmica/Inclinação</sys:String>
+	<sys:String x:Key="Property_FocalLength">Distância Focal</sys:String>
+	<sys:String x:Key="Property_AutoExposurePriority">Prioridade de Exposição Automática</sys:String>
+
+	<sys:String x:Key="Property_Brightness">Brilho</sys:String>
+	<sys:String x:Key="Property_Contrast">Contraste</sys:String>
+	<sys:String x:Key="Property_Hue">Matiz</sys:String>
+	<sys:String x:Key="Property_Saturation">Saturação</sys:String>
+	<sys:String x:Key="Property_Sharpness">Nitidez</sys:String>
+	<sys:String x:Key="Property_Gamma">Gama</sys:String>
+	<sys:String x:Key="Property_ColorEnable">Ativar Cor</sys:String>
+	<sys:String x:Key="Property_WhiteBalance">Proporção de Branco</sys:String>
+	<sys:String x:Key="Property_BacklightCompensation">Comp. Luz de Fundo</sys:String>
+	<sys:String x:Key="Property_Gain">Ganho</sys:String>
+	<sys:String x:Key="ProblemsButton">Problemas?</sys:String>
+	<sys:String x:Key="ReportWindowTitle">Reportar um Problema</sys:String>
+	<sys:String x:Key="ReportWindow_Header">Encontrou algum problema?</sys:String>
+	<sys:String x:Key="ReportWindow_ModelLabel">Modelo da câmera</sys:String>
+	<sys:String x:Key="ReportWindow_DescriptionLabel">Descreva o problema</sys:String>
+	<sys:String x:Key="ReportWindow_SendButton">Enviar</sys:String>
+	<sys:String x:Key="ReportWindow_CancelButton">Cancelar</sys:String>
+	<sys:String x:Key="ReportWindow_Sending">Enviando...</sys:String>
+	<sys:String x:Key="ReportWindow_Sent">Enviado! Obrigado pelo feedback.</sys:String>
+	<sys:String x:Key="ReportWindow_Error">Não foi possível enviar. Tente novamente.</sys:String>
+	<sys:String x:Key="ReportWindow_EmptyDescription">Descreva o problema antes de enviar.</sys:String>
+
+</ResourceDictionary>

@@ -16,7 +16,7 @@
                 Text=" ●"
                 FontWeight="Bold"
                 Foreground="DarkOrange"
-                ToolTip="Alteração não salva"
+                ToolTip="{DynamicResource UnsavedTooltip}"
                 Visibility="Collapsed"/>
 
         </StackPanel>
@@ -24,7 +24,7 @@
         <CheckBox
             x:Name="AutoCheckBox"
             Margin="0,4,0,4"
-            Content="Automático"
+            Content="{DynamicResource Mode_Auto}"
             Visibility="Collapsed"/>
 
         <Slider

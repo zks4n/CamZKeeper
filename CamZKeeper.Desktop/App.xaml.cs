@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using CamZKeeper.Desktop.Localization;
 
 namespace CamZKeeper.Desktop
 {
@@ -9,6 +10,8 @@ namespace CamZKeeper.Desktop
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            LocalizationManager.Initialize();
 
             MainWindow mainWindow = new MainWindow();
 

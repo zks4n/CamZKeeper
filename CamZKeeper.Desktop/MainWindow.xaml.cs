@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using CamZKeeper.Core.Camera;
 using CamZKeeper.Core.Models;
+using CamZKeeper.Desktop.Localization;
 
 namespace CamZKeeper.Desktop
 {
@@ -18,12 +19,16 @@ namespace CamZKeeper.Desktop
 
         private bool _isClosingFromTray;
         private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
+        private System.Windows.Forms.ToolStripMenuItem _trayOpenItem = null!;
+        private System.Windows.Forms.ToolStripMenuItem _trayExitItem = null!;
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeTrayIcon();
             VerificarEstadoConfiguracoes();
+            UpdateLanguageButtonContent();
+            UpdateSupportButtonContent();
 
             _reapplyDebounceTimer.Tick += ReapplyDebounceTimer_Tick;
             _reapplyBackupTimer.Tick += ReapplyBackupTimer_Tick;
@@ -125,7 +130,7 @@ namespace CamZKeeper.Desktop
 
             if (!hasCameras)
             {
-                StatusText.Text = "Nenhuma câmera detectada na inicialização.";
+                StatusText.Text = LocalizationManager.GetString("Status_NoCameraDetected");
                 return;
             }
 
@@ -151,9 +156,15 @@ namespace CamZKeeper.Desktop
             _notifyIcon.Text = "CamZKeeper";
             _notifyIcon.DoubleClick += (s, e) => RestaurarJanela();
 
+            _trayOpenItem = new System.Windows.Forms.ToolStripMenuItem(
+                LocalizationManager.GetString("Tray_Open"), null, (s, e) => RestaurarJanela());
+
+            _trayExitItem = new System.Windows.Forms.ToolStripMenuItem(
+                LocalizationManager.GetString("Tray_Exit"), null, (s, e) => FecharAplicacao());
+
             var contextMenu = new System.Windows.Forms.ContextMenuStrip();
-            contextMenu.Items.Add("Abrir", null, (s, e) => RestaurarJanela());
-            contextMenu.Items.Add("Sair", null, (s, e) => FecharAplicacao());
+            contextMenu.Items.Add(_trayOpenItem);
+            contextMenu.Items.Add(_trayExitItem);
 
             _notifyIcon.ContextMenuStrip = contextMenu;
         }
@@ -275,11 +286,11 @@ namespace CamZKeeper.Desktop
                     }
                 }
 
-                StatusText.Text = "Configurações atualizadas com sucesso.";
+                StatusText.Text = LocalizationManager.GetString("Status_ConfigUpdated");
             }
             catch (Exception ex)
             {
-                StatusText.Text = $"Erro ao salvar: {ex.Message}";
+                StatusText.Text = string.Format(LocalizationManager.GetString("Status_SaveError"), ex.Message);
             }
         }
 
@@ -287,7 +298,9 @@ namespace CamZKeeper.Desktop
         {
             var success = _manager.Save();
             if (success) LoadProperties();
-            StatusText.Text = success ? "Configurações salvas." : "Falha ao salvar.";
+            StatusText.Text = success
+                ? LocalizationManager.GetString("Status_Saved")
+                : LocalizationManager.GetString("Status_SaveFailed");
             UpdateTitle();
         }
 
@@ -296,11 +309,39 @@ namespace CamZKeeper.Desktop
             var success = _manager.ResetToDefaults();
             if (!success)
             {
-                StatusText.Text = "Nenhuma câmera selecionada.";
+                StatusText.Text = LocalizationManager.GetString("Status_NoCameraSelected");
                 return;
             }
             LoadProperties();
-            StatusText.Text = "Valores de fábrica restaurados.";
+            StatusText.Text = LocalizationManager.GetString("Status_DefaultsRestored");
+            UpdateTitle();
+        }
+
+        private void SupportButton_Click(object sender, RoutedEventArgs e)
+        {
+            var supportWindow = new SupportWindow
+            {
+                Owner = this
+            };
+
+            supportWindow.ShowDialog();
+        }
+
+        private void LanguageButton_Click(object sender, RoutedEventArgs e)
+        {
+            LocalizationManager.ToggleLanguage();
+
+            _trayOpenItem.Text = LocalizationManager.GetString("Tray_Open");
+            _trayExitItem.Text = LocalizationManager.GetString("Tray_Exit");
+
+            UpdateLanguageButtonContent();
+            UpdateSupportButtonContent();
+
+            // Os nomes das propriedades (Brilho, Foco, etc.) não usam DynamicResource
+            // (são dinâmicos por instância), então precisam ser recarregados manualmente.
+            if (CameraComboBox.SelectedItem is not null)
+                LoadProperties();
+
             UpdateTitle();
         }
 
@@ -314,7 +355,7 @@ namespace CamZKeeper.Desktop
             }
             catch (Exception ex)
             {
-                StatusText.Text = $"Não foi possível abrir '{camera.Name}': {ex.Message}";
+                StatusText.Text = string.Format(LocalizationManager.GetString("Status_CameraOpenError"), camera.Name, ex.Message);
                 return;
             }
 
@@ -342,7 +383,7 @@ namespace CamZKeeper.Desktop
             {
                 AddPropertyControl(property);
             }
-            StatusText.Text = $"{properties.Count} propriedades carregadas.";
+            StatusText.Text = string.Format(LocalizationManager.GetString("Status_PropertiesLoaded"), properties.Count);
         }
 
         private void AddPropertyControl(UvcSetting property)
@@ -361,10 +402,10 @@ namespace CamZKeeper.Desktop
             if (!success)
             {
                 control.Value = control.Setting.Value;
-                StatusText.Text = $"{control.Setting.Name}: valor rejeitado.";
+                StatusText.Text = string.Format(LocalizationManager.GetString("Status_ValueRejected"), control.Setting.Name);
                 return;
             }
-            StatusText.Text = $"{control.Setting.Name}: {value}";
+            StatusText.Text = string.Format(LocalizationManager.GetString("Status_ValueChanged"), control.Setting.Name, value);
             UpdateTitle();
         }
 
@@ -377,8 +418,13 @@ namespace CamZKeeper.Desktop
             control.ApplyAutoResult(control.Setting.IsAuto, control.Setting.Value);
 
             StatusText.Text = success
-                ? $"{control.Setting.Name}: {(control.Setting.IsAuto ? "Automático" : "Manual")}"
-                : $"{control.Setting.Name}: automático rejeitado.";
+                ? string.Format(
+                    LocalizationManager.GetString("Status_AutoMode"),
+                    control.Setting.Name,
+                    control.Setting.IsAuto
+                        ? LocalizationManager.GetString("Mode_Auto")
+                        : LocalizationManager.GetString("Mode_Manual"))
+                : string.Format(LocalizationManager.GetString("Status_AutoRejected"), control.Setting.Name);
 
             UpdateTitle();
         }
@@ -386,6 +432,82 @@ namespace CamZKeeper.Desktop
         private void UpdateTitle()
         {
             Title = _manager.HasUnsavedChanges ? "CamZKeeper *" : "CamZKeeper";
+        }
+
+        private void UpdateLanguageButtonContent()
+        {
+            bool isCurrentlyPortuguese = LocalizationManager.CurrentLanguage == LocalizationManager.PortugueseBr;
+
+            var flagImage = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(
+                    new Uri(isCurrentlyPortuguese
+                        ? "/Assets/flag_us.png"
+                        : "/Assets/flag_br.png", UriKind.Relative)),
+                Width = 18,
+                Height = 13,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var text = new TextBlock
+            {
+                Text = LocalizationManager.GetString("LanguageButton"),
+                Margin = new Thickness(4, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var panel = new StackPanel
+            {
+                Orientation = System.Windows.Controls.Orientation.Horizontal,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center
+            };
+
+            panel.Children.Add(flagImage);
+            panel.Children.Add(text);
+
+            LanguageButton.Content = panel;
+        }
+
+        private void UpdateSupportButtonContent()
+        {
+            var coffeeImage = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(
+                    new Uri("/Assets/coffee.png", UriKind.Relative)),
+                Width = 16,
+                Height = 16,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var text = new TextBlock
+            {
+                Text = LocalizationManager.GetString("SupportButton"),
+                Margin = new Thickness(4, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var panel = new StackPanel
+            {
+                Orientation = System.Windows.Controls.Orientation.Horizontal,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center
+            };
+
+            panel.Children.Add(coffeeImage);
+            panel.Children.Add(text);
+
+            SupportButton.Content = panel;
+        }
+
+        private void ProblemsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var cameraName = (CameraComboBox.SelectedItem as CameraInfo)?.Name;
+
+            var reportWindow = new ReportProblemWindow(cameraName)
+            {
+                Owner = this
+            };
+
+            reportWindow.ShowDialog();
         }
     }
 }

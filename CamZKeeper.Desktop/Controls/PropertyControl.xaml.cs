@@ -209,7 +209,7 @@ public partial class PropertyControl : System.Windows.Controls.UserControl
     {
         Setting = setting;
 
-        DisplayName = setting.Name;
+        DisplayName = CamZKeeper.Desktop.Localization.LocalizationManager.GetPropertyDisplayName(setting.Name);
         Value = setting.Value;
         Minimum = setting.Minimum;
         Maximum = setting.Maximum;

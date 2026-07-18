@@ -19,10 +19,48 @@
         </Grid.RowDefinitions>
 
 
-        <TextBlock
-            FontSize="22"
-            FontWeight="Bold"
-            Text="CamZKeeper"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                FontSize="22"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="CamZKeeper"/>
+
+            <Button
+                x:Name="LanguageButton"
+                Grid.Column="1"
+                Width="56"
+                Height="26"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Click="LanguageButton_Click"/>
+
+            <Button
+                x:Name="SupportButton"
+                Grid.Column="2"
+                Width="95"
+                Height="26"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Click="SupportButton_Click"/>
+
+            <Button
+                x:Name="ProblemsButton"
+                Grid.Column="3"
+                Width="80"
+                Height="26"
+                VerticalAlignment="Center"
+                Content="{DynamicResource ProblemsButton}"
+                Click="ProblemsButton_Click"/>
+        </Grid>
 
 
         <StackPanel Grid.Row="1" Margin="0,15,0,0">
@@ -34,14 +72,14 @@
             <CheckBox
                 x:Name="StartupCheckBox"
                 Margin="0,10,0,0"
-                Content="Iniciar automaticamente com o Windows"
+                Content="{DynamicResource StartupCheckBox}"
                 Checked="ConfigCheckBox_Changed"
                 Unchecked="ConfigCheckBox_Changed"/>
 
             <CheckBox
                 x:Name="TrayCheckBox"
                 Margin="0,10,0,0"
-                Content="Minimizar para a bandeja do sistema (System Tray)"
+                Content="{DynamicResource TrayCheckBox}"
                 Checked="ConfigCheckBox_Changed"
                 Unchecked="ConfigCheckBox_Changed"/>
         </StackPanel>
@@ -55,14 +93,14 @@
                 Width="170"
                 Height="35"
                 Margin="0,0,10,0"
-                Content="Salvar"
+                Content="{DynamicResource SaveButton}"
                 Click="SaveButton_Click"/>
 
             <Button
                 x:Name="ResetButton"
                 Width="170"
                 Height="35"
-                Content="Restaurar Padrão"
+                Content="{DynamicResource ResetButton}"
                 Click="ResetButton_Click"/>
         </StackPanel>
 
@@ -76,7 +114,7 @@
             <TextBlock
                 x:Name="StatusText"
                 Grid.Row="0"
-                Text="Pronto."/>
+                Text="{DynamicResource Status_Ready}"/>
 
             <ScrollViewer
                 Grid.Row="2"

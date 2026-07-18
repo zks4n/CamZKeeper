@@ -60,3 +60,5 @@ desktop.ini
 # vai anexado na aba "Releases" do GitHub, não commitado no repositório)
 installer/Output/
 *.exe
+
+CamZKeeper.Desktop/Support/DiscordWebhookConfig.cs

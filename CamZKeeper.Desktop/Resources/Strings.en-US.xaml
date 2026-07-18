@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+	<sys:String x:Key="LanguageButton">BR</sys:String>
+	<sys:String x:Key="SupportButton">Little coffee</sys:String>
+
+	<sys:String x:Key="StartupCheckBox">Start automatically with Windows</sys:String>
+	<sys:String x:Key="TrayCheckBox">Minimize to system tray</sys:String>
+
+	<sys:String x:Key="SaveButton">Save</sys:String>
+	<sys:String x:Key="ResetButton">Reset to Default</sys:String>
+
+	<sys:String x:Key="Status_Ready">Ready.</sys:String>
+	<sys:String x:Key="Status_NoCameraDetected">No camera detected at startup.</sys:String>
+	<sys:String x:Key="Status_ConfigUpdated">Settings updated successfully.</sys:String>
+	<sys:String x:Key="Status_SaveError">Error saving: {0}</sys:String>
+	<sys:String x:Key="Status_Saved">Settings saved.</sys:String>
+	<sys:String x:Key="Status_SaveFailed">Failed to save.</sys:String>
+	<sys:String x:Key="Status_NoCameraSelected">No camera selected.</sys:String>
+	<sys:String x:Key="Status_DefaultsRestored">Factory defaults restored.</sys:String>
+	<sys:String x:Key="Status_CameraOpenError">Could not open '{0}': {1}</sys:String>
+	<sys:String x:Key="Status_PropertiesLoaded">{0} properties loaded.</sys:String>
+	<sys:String x:Key="Status_ValueRejected">{0}: value rejected.</sys:String>
+	<sys:String x:Key="Status_ValueChanged">{0}: {1}</sys:String>
+	<sys:String x:Key="Status_AutoMode">{0}: {1}</sys:String>
+	<sys:String x:Key="Status_AutoRejected">{0}: auto rejected.</sys:String>
+	<sys:String x:Key="Mode_Auto">Auto</sys:String>
+	<sys:String x:Key="Mode_Manual">Manual</sys:String>
+
+	<sys:String x:Key="Tray_Open">Open</sys:String>
+	<sys:String x:Key="Tray_Exit">Exit</sys:String>
+
+	<sys:String x:Key="UnsavedTooltip">Unsaved change</sys:String>
+
+	<sys:String x:Key="SupportWindowTitle">Support CamZKeeper</sys:String>
+	<sys:String x:Key="SupportWindow_Header">Enjoying CamZKeeper?</sys:String>
+	<sys:String x:Key="SupportWindow_Body">This software is free and made in my spare time. If it helped you and you'd like to give back, consider dropping by the stream or buying me a coffee!</sys:String>
+	<sys:String x:Key="SupportWindow_TwitchButton">Visit the channel</sys:String>
+	<sys:String x:Key="SupportWindow_LivePixButton">Support with a coffee</sys:String>
+	<sys:String x:Key="ProblemsButton">Problems?</sys:String>
+	<sys:String x:Key="ReportWindowTitle">Report a Problem</sys:String>
+	<sys:String x:Key="ReportWindow_Header">Found a problem?</sys:String>
+	<sys:String x:Key="ReportWindow_ModelLabel">Camera model</sys:String>
+	<sys:String x:Key="ReportWindow_DescriptionLabel">Describe the problem</sys:String>
+	<sys:String x:Key="ReportWindow_SendButton">Send</sys:String>
+	<sys:String x:Key="ReportWindow_CancelButton">Cancel</sys:String>
+	<sys:String x:Key="ReportWindow_Sending">Sending...</sys:String>
+	<sys:String x:Key="ReportWindow_Sent">Sent! Thanks for the feedback.</sys:String>
+	<sys:String x:Key="ReportWindow_Error">Could not send. Please try again.</sys:String>
+	<sys:String x:Key="ReportWindow_EmptyDescription">Please describe the problem before sending.</sys:String>
+
+	<!-- Nomes de propriedades: não precisa cadastrar aqui, o fallback do
+         GetPropertyDisplayName já usa o nome cru do enum (que já é em inglês). -->
+
+</ResourceDictionary>

@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\coffe.png" />
+    <None Remove="Assets\coffee.png" />
+    <None Remove="Assets\flag_br.png" />
+    <None Remove="Assets\flag_us.png" />
     <None Remove="Assets\icon_webcam.ico" />
   </ItemGroup>
 
@@ -20,7 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\coffee.png" />
+    <Resource Include="Assets\flag_br.png" />
+    <Resource Include="Assets\flag_us.png" />
     <Resource Include="Assets\icon_webcam.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>
