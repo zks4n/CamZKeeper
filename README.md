@@ -2,26 +2,29 @@
 
 Utilitário para Windows que lê, ajusta e **mantém salvas** todas as propriedades UVC (foco, zoom, exposição, brilho, contraste, balanço de branco, ganho, nitidez, etc.) de webcams compatíveis — inclusive controles proprietários de fabricante, como o RightLight da Logitech.
 
-<!-- Sugestão: coloque aqui um print ou GIF da interface em ação.
-     Exemplo de sintaxe: ![Tela principal do CamZKeeper](docs/screenshot.png) -->
+Disponível em **Português (BR)** e **Inglês**.
 
 ## O problema que ele resolve
 
 Muitas webcams (a Logitech C920 é o caso clássico) perdem as configurações de foco, zoom, exposição e nitidez toda vez que o computador reinicia ou que certos aplicativos são abertos — obrigando a reconfigurar tudo manualmente. Softwares como Logitech G HUB ou OBS conseguem ajustar esses valores, mas não garantem que fiquem persistidos.
 
-O **CamZKeeper** guarda um perfil permanente dessas configurações e reaplica tudo com um clique — sem depender de software proprietário do fabricante.
+O **CamZKeeper** guarda um perfil permanente dessas configurações, reaplica tudo automaticamente assim que o Windows liga, e detecta quando outro programa (OBS, Teams, Discord, navegador, etc.) começa a usar a câmera — reforçando as configurações certas na hora, sem precisar de nenhuma ação manual.
 
 ## Funcionalidades
 
 - Detecta automaticamente as webcams conectadas (filtra câmeras virtuais como OBS Virtual Camera, que não implementam as interfaces UVC padrão).
-- Lê e exibe todas as propriedades UVC suportadas pela câmera selecionada.
+- Lê e exibe todas as propriedades UVC suportadas pela câmera selecionada, com nomes traduzidos e consistentes com o painel nativo do Windows.
 - Permite ajustar cada propriedade em tempo real, direto pelos sliders — sem precisar clicar em "Aplicar".
 - Alterna entre modo Automático e Manual por propriedade (quando a câmera suporta), com o valor real da câmera refletido na tela.
 - Restaura os valores de fábrica com um clique.
 - Salva o perfil em disco (`CameraSettings.json`) e reaplica tudo automaticamente na próxima vez que a câmera for selecionada.
 - Indica visualmente quais propriedades têm alterações ainda não salvas.
 - Suporte a controles de Extension Unit (proprietários de fabricante), como o RightLight da Logitech, quando a câmera expõe essa interface.
-- Observa em segundo plano quando algum aplicativo começa a usar a webcam (via Windows, sem polling — custo de CPU zero enquanto ocioso).
+- **Inicialização automática:** pode iniciar junto com o Windows (com a opção de abrir minimizado direto na bandeja do sistema) e já reaplica as configurações salvas antes mesmo de qualquer outro programa acessar a câmera.
+- **Reforço automático:** observa em segundo plano quando algum aplicativo começa a usar a webcam (via um mecanismo nativo do Windows, sem polling — custo de CPU praticamente zero enquanto ocioso) e reaplica as configurações na hora, cobrindo o caso de câmeras que resetam seus próprios valores ao iniciar o stream de vídeo.
+- **Troca de idioma:** um clique alterna toda a interface entre Português (BR) e Inglês, com a escolha lembrada nas próximas aberturas.
+- **Reportar um problema:** botão "Problemas?" abre um formulário simples (modelo da câmera + descrição) que envia o relatório diretamente para o desenvolvedor, sem precisar configurar e-mail nem sair do app.
+- Botão de apoio ao desenvolvedor (Twitch / Pix), pra quem quiser retribuir o projeto.
 
 ## Requisitos
 
@@ -56,13 +59,19 @@ dotnet build
 dotnet run --project CamZKeeper.Desktop
 ```
 
+> Se for compilar do zero, crie o arquivo `CamZKeeper.Desktop/Support/DiscordWebhookConfig.cs` a partir do `DiscordWebhookConfig.example.cs` (o botão "Problemas?" não funciona sem isso, mas o restante do app funciona normalmente).
+
 ## Como usar
 
-1. Abra o CamZKeeper e selecione sua webcam na lista.
-2. Na primeira vez, ele lê todas as propriedades suportadas e cria o perfil automaticamente.
-3. Ajuste os sliders — as mudanças são aplicadas na câmera imediatamente.
-4. Clique em **Salvar** para persistir as alterações em disco.
-5. Use **Restaurar Padrão** a qualquer momento para voltar aos valores de fábrica (não esqueça de salvar depois, se quiser manter).
+1. **Selecione sua webcam** na lista suspensa no topo da janela. Na primeira vez, o CamZKeeper lê todas as propriedades suportadas e cria o perfil automaticamente.
+2. **Ajuste os sliders** — as mudanças são aplicadas na câmera imediatamente, sem precisar clicar em nada.
+3. Clique em **Salvar** para persistir as alterações em disco (elas serão reaplicadas automaticamente depois).
+4. Use **Restaurar Padrão** a qualquer momento para voltar aos valores de fábrica (não esqueça de salvar depois, se quiser manter).
+5. Marque **"Iniciar automaticamente com o Windows"** para o CamZKeeper aplicar suas configurações assim que o computador ligar, sem precisar abrir o app manualmente.
+6. Marque **"Minimizar para a bandeja do sistema"** para o app rodar discretamente em segundo plano (ícone perto do relógio) em vez de ficar aberto na área de trabalho ou na barra de tarefas.
+7. Use o botão de **idioma** (bandeira 🇧🇷/🇺🇸) no topo pra alternar entre Português e Inglês a qualquer momento — a escolha fica salva para a próxima vez que abrir o app.
+8. Se encontrar algum problema, clique em **"Problemas?"**, descreva o que aconteceu (o modelo da câmera já vem preenchido, se houver uma selecionada) e clique em **Enviar** — o relatório chega diretamente para o desenvolvedor.
+9. Se quiser apoiar o projeto, use o botão **☕ Cafezinho**, que leva à Twitch e ao Pix do desenvolvedor.
 
 ## Arquitetura
 
@@ -79,6 +88,11 @@ CamZKeeper
 │   └── Services/               → persistência em disco
 │
 └── CamZKeeper.Desktop        → interface WPF, consome o Core sem conhecer DirectShow
+    ├── Controls/              → controles reutilizáveis (PropertyControl)
+    ├── Localization/          → gerenciamento de idioma (PT-BR / EN-US)
+    ├── Resources/             → dicionários de strings traduzidas
+    ├── Support/               → envio de relatórios de problema (Discord Webhook)
+    └── Assets/                → ícone e imagens da interface
 ```
 
 **Princípios seguidos:**
@@ -91,24 +105,20 @@ CamZKeeper
 - **C# / .NET 10**
 - **WPF** para a interface
 - **DirectShowLib** para comunicação com a câmera (`IAMCameraControl`, `IAMVideoProcAmp`, `IKsPropertySet`)
+- **Discord Webhook** para o envio de relatórios de problema (sem credenciais de e-mail embutidas no app)
 
-## Roadmap
+## Status do projeto
 
-- [x] Descoberta, leitura e ajuste de propriedades UVC em tempo real
-- [x] Persistência de configurações (salvar/restaurar/restaurar padrão de fábrica)
-- [x] Indicação visual de alterações não salvas
-- [x] Suporte a Extension Unit (RightLight e afins)
-- [ ] Aplicação automática das configurações ao iniciar o Windows
-- [ ] Agrupamento/busca de propriedades na interface
-- [ ] Suporte simultâneo a múltiplas webcams
-- [ ] Perfis por dispositivo
+O CamZKeeper está funcionalmente completo para o seu propósito principal. A partir daqui, o foco passa a ser:
+
+- Correção de bugs.
+- Suporte a modelos de webcam adicionais (cada driver/fabricante pode se comportar de forma um pouco diferente).
+
+Não há novas funcionalidades grandes planejadas no momento — sugestões continuam bem-vindas, mas o escopo do projeto é intencionalmente enxuto.
 
 ## Contribuindo
 
-Sugestões, issues e pull requests são bem-vindos. Se encontrar um bug ou tiver uma ideia, abra uma [issue](../../issues).
+Sugestões, issues e pull requests são bem-vindos. Se encontrar um bug ou tiver uma ideia, abra uma [issue](../../issues) — ou use o botão **"Problemas?"** direto dentro do próprio app.
 
 ## Licença
-
-<!-- Escolha uma licença e ajuste aqui. Sugestão para projetos open source pessoais: MIT
-     (permite uso comercial e modificação por terceiros, exigindo só que mantenham o crédito). -->
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
